@@ -259,7 +259,7 @@ How long (in ms) the message should be visible.
 
 Remember to watch the source.
 
-* [Basic](http://scoreboardjs.tb-one.se/demos/basic.html/)
-* [Messages](http://scoreboardjs.tb-one.se/demos/messages.html/)
-* [Methods](http://scoreboardjs.tb-one.se/demos/methods.html/)
-* [Extend](http://scoreboardjs.tb-one.se/demos/extend.html/)
+* [Basic](http://scoreboardjs.tb-one.se/demos/basic.html)
+* [Messages](http://scoreboardjs.tb-one.se/demos/messages.html)
+* [Methods](http://scoreboardjs.tb-one.se/demos/methods.html)
+* [Extend](http://scoreboardjs.tb-one.se/demos/extend.html)
