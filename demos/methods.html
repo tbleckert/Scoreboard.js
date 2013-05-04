@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html class="controls">
+	<head>
+		<meta charset="utf-8">
+		<title>Scoreboard.js</title>
+		<link rel="stylesheet" href="css/demo.css">
+		<link rel="stylesheet" href="../src/theme.css">
+	</head>
+	<body>
+		<div class="controls">
+			<button id="startTime">Start time</button>
+			<button id="stopTime">Stop time</button>
+			<button id="resetTime">Reset Timer</button>
+			<button id="addHomeGoal">Add home goal</button>
+			<button id="addAwayGoal">Add away goal</button>
+			<button id="resetHomeGoals">Reset home goals</button>
+			<button id="resetAwayGoals">Reset away goals</button>
+		</div>
+	
+		<article class="scoreboard" id="scoreboard">
+			<div class="teams">
+				<span class="team" data-scoreboard-bind="homeTeamShort">Null</span>
+				<span class="score">
+					<span data-scoreboard-bind="homeTeamGoals">0</span>
+					-
+					<span data-scoreboard-bind="awayTeamGoals">0</span>
+				</span>
+				<span class="team" data-scoreboard-bind="awayTeamShort">Null</span>
+			</div>
+			<span class="time" data-scoreboard-bind="time">00:00</span>
+		</article>
+		
+		<script src="../src/deps/mootools.js"></script>
+		<script src="../src/deps/mootools-more.js"></script>
+		<script src="../src/scoreboard.js"></script>
+		<script>
+			var scoreboard = new Scoreboard({
+				homeTeamName: 'Juventus',
+				awayTeamName: 'Barcelona',
+				homeTeamLogo: 'img/home_logo.png',
+				awayTeamLogo: 'img/away_logo.png',
+				arena: 'Juventus Stadium' // You can store your own data too
+			}),
+			addHomeGoal    = document.id('addHomeGoal'),
+			addAwayGoal    = document.id('addAwayGoal'),
+			startTime      = document.id('startTime'),
+			stopTime       = document.id('stopTime'),
+			resetTime      = document.id('resetTime'),
+			resetHomeGoals = document.id('resetHomeGoals'),
+			resetAwayGoals = document.id('resetAwayGoals');
+		
+			addHomeGoal.addEvent('click', function () {
+				scoreboard.addGoal('home');
+			});
+			
+			addAwayGoal.addEvent('click', function () {
+				scoreboard.addGoal('away');
+			});
+			
+			resetHomeGoals.addEvent('click', function () {
+				scoreboard.resetGoals('home');
+			});
+			
+			resetAwayGoals.addEvent('click', function () {
+				scoreboard.resetGoals('away');
+			});
+			
+			startTime.addEvent('click', function () {
+				scoreboard.startTime();
+			});
+			
+			stopTime.addEvent('click', function () {
+				scoreboard.stopTime();
+			});
+			
+			resetTime.addEvent('click', function () {
+				scoreboard.resetTime();
+			});
+		</script>
+	</body>
+</html>

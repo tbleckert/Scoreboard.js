@@ -1,0 +1,35 @@
+.scoreboard {
+	height: 80px;
+	text-align: left;
+}
+
+	.scoreboard > .player {
+		padding: 0 10px;
+		overflow: hidden;
+	}
+	
+	.scoreboard > .awayPlayer {
+		background: #323031;
+	}
+	
+		.scoreboard > .player > span {
+			display: block;
+			float: left;
+			width: 10%;
+			text-align: center;
+			box-sizing: border-box;
+			padding: 0 10px;
+		}
+		
+		.scoreboard > .player > .points {
+			text-align: right;
+		}
+	
+		.scoreboard > .player > .name {
+			width: 40%;
+			text-align: left;
+		}
+		
+		.scoreboard > .player > .current {
+			background: rgba(0, 0, 0, 0.2);
+		}

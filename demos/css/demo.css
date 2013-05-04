@@ -1,0 +1,49 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100%;
+}
+
+html.controls {
+}
+
+body {
+	position: relative;
+	background: #fff9f4;
+	overflow: hidden;
+}
+
+.controls body {
+	border-top: 66px solid transparent;
+	box-sizing: border-box;
+}
+
+	body > .controls {
+		background: url(gfx/linen.png) repeat;
+		height: 26px;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: -66px;
+		text-align: center;
+		padding: 20px;
+	}
+	
+		body > .controls > button {
+			margin: 0 5px;
+			cursor: pointer;
+			padding: 0 10px;
+			display: inline-block;
+			height: 26px;
+			line-height: 26px;
+			font-size: 11px;
+			text-decoration: none;
+			font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+			font-weight: normal;
+			color: #fff;
+			background: #e64f61;
+			border: none;
+		}

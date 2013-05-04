@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html class="controls">
+	<head>
+		<meta charset="utf-8">
+		<title>Scoreboard.js</title>
+		<link rel="stylesheet" href="css/demo.css">
+		<link rel="stylesheet" href="../src/theme.css">
+		<link rel="stylesheet" href="css/tennisTheme.css">
+		<style>
+			.controls body {
+				border-top: 116px solid transparent;
+			}
+		
+			body > .controls {
+				height: 76px;
+				top: -116px;
+			}
+			
+				body > .controls > button {
+					margin: 5px 5px;
+				}
+		</style>
+	</head>
+	<body>
+		<div class="controls">
+			<button id="addHomePoint">Add home point</button>
+			<button id="addAwayPoint">Add away points</button>
+			<button id="removeHomePoint">Remove home points</button>
+			<button id="removeAwayPoint">Remove away points</button>
+			<button id="resetHomePoints">Reset home points</button>
+			<button id="resetAwayPoints">Reset away points</button>
+			<button id="addHomeGame">Add home game</button>
+			<button id="addAwayGame">Add away game</button>
+			<button id="removeHomeGame">Remove home game</button>
+			<button id="removeAwayGame">Remove away game</button>
+			<button id="resetHomeGames">Reset home games</button>
+			<button id="resetAwayGames">Reset away games</button>
+			<button id="addSet">Add set</button>
+			<button id="removeSet">Remove set</button>
+			<button id="resetSet">Reset set</button>
+		</div>
+	
+		<article class="scoreboard" id="scoreboard">
+			<div class="player homePlayer">
+				<span class="name" data-scoreboard-bind="homePlayerName">Null</span>
+				<span class="points" data-scoreboard-bind="homeTeamGoals">0</span>
+				<span class="game current" data-scoreboard-bind="homePlayerGame1">0</span>
+				<span class="game" data-scoreboard-bind="homePlayerGame2">0</span>
+				<span class="game" data-scoreboard-bind="homePlayerGame3">0</span>
+				<span class="game" data-scoreboard-bind="homePlayerGame4">0</span>
+				<span class="game" data-scoreboard-bind="homePlayerGame5">0</span>
+			</div>
+			
+			<div class="player awayPlayer">
+				<span class="name" data-scoreboard-bind="awayPlayerName">Null</span>
+				<span class="points" data-scoreboard-bind="awayTeamGoals">0</span>
+				<span class="game current" data-scoreboard-bind="awayPlayerGame1">0</span>
+				<span class="game" data-scoreboard-bind="awayPlayerGame2">0</span>
+				<span class="game" data-scoreboard-bind="awayPlayerGame3">0</span>
+				<span class="game" data-scoreboard-bind="awayPlayerGame4">0</span>
+				<span class="game" data-scoreboard-bind="awayPlayerGame5">0</span>
+			</div>
+		</article>
+		
+		<script src="../src/deps/mootools.js"></script>
+		<script src="../src/deps/mootools-more.js"></script>
+		<script src="../src/scoreboard.js"></script>
+		<script>
+			var TennisScoreboard = new Class({
+				Extends: Scoreboard,
+				
+				attach: function () {
+					var self = this;
+				
+					this.addEvent('change', function (what, value) {
+						if (what === 'homePlayerGames' || what == 'awayPlayerGames') {
+							var set   = self.get('gameSet'),
+									value = (what === 'homePlayerGames') ? self.get('homePlayerGames')[set] : self.get('awayPlayerGames')[set],
+									what  = (what === 'homePlayerGames') ? 'homePlayerGame' + (set + 1) : 'awayPlayerGame' + (set + 1);			
+						}
+						
+						this.getScoreboardElement(what).set('html', value);
+					});
+				
+					return this;
+				},
+				
+				addPoint: function (player) {
+					var tennispoints = function (val) {
+						if (val === 1) {
+							return 15;
+						} else if (val === 2 || val === 16) {
+							return 30;
+						} else {
+							return 40;
+						}
+					};
+					
+					this.applyFilter('addHomeTeamGoal', tennispoints);
+					this.applyFilter('addAwayTeamGoal', tennispoints);
+					
+					this.addGoal(player);
+				},
+				
+				removePoint: function (player) {
+					var tennispoints = function (val) {
+						if (val >= 39) {
+							return 30;
+						} else if (val <= 29 && val > 15) {
+							return 15;
+						} else {
+							return 0;
+						}
+					};
+					
+					this.applyFilter('removeHomeTeamGoal', tennispoints);
+					this.applyFilter('removeAwayTeamGoal', tennispoints);
+					
+					this.removeGoal(player);
+				},
+				
+				addGame: function (player) {
+					var games, set = this.get('gameSet');
+
+					if (player === 'home') {
+						games = this.get('homePlayerGames');
+
+						if (games[set] < 7) {
+							games[set] += 1;
+						}
+						
+						// Apply filter
+						games = this.filter('addHomePlayerGame', games);
+						
+						this.set('homePlayerGames', games);
+					} else if (player === 'away') {
+						games = this.get('awayPlayerGames');
+						
+						if (games[set] < 7) {
+							games[set] += 1;
+						}
+						
+						// Apply filter
+						games = this.filter('addAwayPlayerGame', games);
+						
+						this.set('awayPlayerGames', games);
+					}
+				
+					this.fireEvent('onWonGame', player);
+					return this;
+				},
+				
+				removeGame: function (player) {
+					var games, set = this.get('gameSet');
+		
+					if (player === 'home') {
+						games = this.get('homePlayerGames');
+						
+						if (games[set] > 0) {
+							games[set] -= 1;
+						}
+						
+						// Apply filter
+						games = this.filter('addHomePlayerGame', games);
+						
+						this.set('homePlayerGames', games);
+					} else if (player === 'away') {
+						games = this.get('awayPlayerGames');
+						
+						if (games[set] > 0) {
+							games[set] -= 1;
+						}
+						
+						// Apply filter
+						games = this.filter('addAwayPlayerGame', games);
+						
+						this.set('awayPlayerGames', games);
+					}
+				
+					this.fireEvent('onRemovedGame', player);
+					return this;
+				},
+				
+				resetGames: function (player) {
+					if (player === 'home') {
+						this.set('homePlayerGames', [0, 0, 0, 0, 0]);
+					} else {
+						this.set('awayPlayerGames', [0, 0, 0, 0, 0]);
+					}
+					
+					this.fireEvent('onResetGames');
+					return this;
+				},
+				
+				addSet: function () {
+					var set = this.get('gameSet') || 0;
+					
+					if (set < 4) {
+						set += 1;
+					}
+						
+					// Apply filter
+					set = this.filter('addSet', set);
+		
+					this.set('gameSet', set);
+				
+					this.fireEvent('onNewSet', set);
+					return this;
+				},
+				
+				removeSet: function () {
+					var set = this.get('gameSet') || 0;
+					
+					if (set < 4) {
+						set -= 1;
+					}
+						
+					// Apply filter
+					set = this.filter('removeSet', set);
+		
+					this.set('gameSet', set);
+				
+					this.fireEvent('onRemovedSet', set);
+					return this;
+				},
+				
+				resetSet: function () {
+					this.set('gameSet', 0);
+				
+					this.fireEvent('onResetSet');
+					return this;
+				}
+			});
+		
+			var scoreboard = new TennisScoreboard({
+				homePlayerName: 'R. Söderling',
+				awayPlayerName: 'R. Nadal',
+				homePlayerGames: [0, 0, 0, 0, 0],
+				awayPlayerGames: [0, 0, 0, 0, 0],
+				gameSet:         0,
+				position:        'bottomCenter'
+			});
+		
+			addHomePoint.addEvent('click', function () {
+				scoreboard.addPoint('home');
+			});
+			
+			addAwayPoint.addEvent('click', function () {
+				scoreboard.addPoint('away');
+			});
+			
+			resetHomePoints.addEvent('click', function () {
+				scoreboard.resetGoals('home');
+			});
+			
+			resetAwayPoints.addEvent('click', function () {
+				scoreboard.resetGoals('away');
+			});
+			
+			removeHomePoint.addEvent('click', function () {
+				scoreboard.removePoint('home');
+			});
+			
+			removeAwayPoint.addEvent('click', function () {
+				scoreboard.removePoint('away');
+			});
+			
+			addHomeGame.addEvent('click', function () {
+				scoreboard.addGame('home');
+			});
+			
+			addAwayGame.addEvent('click', function () {
+				scoreboard.addGame('away');
+			});
+			
+			resetHomeGames.addEvent('click', function () {
+				scoreboard.resetGames('home');
+			});
+			
+			resetAwayGames.addEvent('click', function () {
+				scoreboard.resetGames('away');
+			});
+			
+			removeHomeGame.addEvent('click', function () {
+				scoreboard.removeGame('home');
+			});
+			
+			removeAwayGame.addEvent('click', function () {
+				scoreboard.removeGame('away');
+			});
+			
+			addSet.addEvent('click', function () {
+				scoreboard.addSet();
+			});
+			
+			removeSet.addEvent('click', function () {
+				scoreboard.removeSet();
+			});
+			
+			resetSet.addEvent('click', function () {
+				console.log(this);
+				scoreboard.resetSet();
+			});
+			
+			function changeSet(set) {
+				var elements = $$('#scoreboard > .player > .game');
+				
+				elements.removeClass('current');
+				elements[set].addClass('current');
+			}
+			
+			scoreboard.addEvent('onNewSet', changeSet);
+			scoreboard.addEvent('onRemovedSet', changeSet);
+		</script>
+	</body>
+</html>

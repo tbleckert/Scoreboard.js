@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html class="controls">
+	<head>
+		<meta charset="utf-8">
+		<title>Scoreboard.js</title>
+		<link rel="stylesheet" href="css/demo.css">
+		<link rel="stylesheet" href="../src/theme.css">
+	</head>
+	<body>
+		<div class="controls">
+			<button id="status">Status</button>
+			<button id="addHomeGoal">Add home goal</button>
+			<button id="addAwayGoal">Add away goal</button>
+			<button id="yellowCard">Yellow card</button>
+			<button id="redCard">Red card</button>
+			<button id="substitution">Substitution</button>
+		</div>
+	
+		<article class="scoreboard" id="scoreboard">
+			<div class="teams">
+				<span class="team" data-scoreboard-bind="homeTeamShort">Null</span>
+				<span class="score">
+					<span data-scoreboard-bind="homeTeamGoals">0</span>
+					-
+					<span data-scoreboard-bind="awayTeamGoals">0</span>
+				</span>
+				<span class="team" data-scoreboard-bind="awayTeamShort">Null</span>
+			</div>
+			<span class="time" data-scoreboard-bind="time">00:00</span>
+		</article>
+		
+		<script type="text/tim" id="statusMessage">
+			<div class="statusMessage">
+				<div class="logo"><img src="{{scoreboard.homeTeamLogo}}"></div>
+				<div class="logo"><img src="{{scoreboard.awayTeamLogo}}"></div>
+				<div class="score">
+					<span class="team">{{scoreboard.homeTeamName}}</span>
+					<span class="score">
+						{{scoreboard.homeTeamGoals}} - {{scoreboard.awayTeamGoals}}
+					</span>
+					<span class="team">{{scoreboard.awayTeamName}}</span>
+				</div>
+				<footer class="arena">
+					{{scoreboard.arena}}
+				</footer>
+			</div>
+		</script>
+		
+		<script type="text/tim" id="scoreMessage">
+			<div class="scoreMessage">
+				<h1>{{minute}} {{title}}</h1>
+				
+				<div class="logo"><img src="{{logo}}"></div>
+				
+				<div class="player">
+					<span class="number">{{number}}.</span>
+					<span class="player">{{player}}</span>
+				</div>
+			</div>
+		</script>
+		
+		<script type="text/tim" id="bookingMessage">
+			<div class="bookingMessage">
+				<h1>{{minute}} {{title}}</h1>
+				
+				<div class="logo"><img src="{{logo}}"></div>
+				
+				<div class="player {{card}}">
+					<span class="number">{{number}}.</span>
+					<span class="player">{{player}}</span>
+				</div>
+			</div>
+		</script>
+		
+		<script type="text/tim" id="substituteMessage">
+			<div class="substituteMessage">
+				<h1>{{minute}} {{title}}</h1>
+				
+				<div class="logo"><img src="{{logo}}"></div>
+				
+				<div class="players">
+					<span class="player in">{{playerIn}}.</span>
+					<span class="player out">{{playerOut}}</span>
+				</div>
+			</div>
+		</script>
+		
+		<script src="../src/deps/mootools.js"></script>
+		<script src="../src/deps/mootools-more.js"></script>
+		<script src="../src/scoreboard.js"></script>
+		<script>
+			var scoreboard = new Scoreboard({
+				autoStart: true,
+				homeTeamName: 'Juventus',
+				awayTeamName: 'Barcelona',
+				homeTeamLogo: 'img/home_logo.png',
+				awayTeamLogo: 'img/away_logo.png',
+				arena: 'Juventus Stadium' // You can store your own data too
+			}),
+			addHomeGoal = document.id('addHomeGoal'),
+			addAwayGoal = document.id('addAwayGoal'),
+			yellowCard  = document.id('yellowCard'),
+			redCard     = document.id('redCard'),
+			showStatus  = document.id('status'),
+			showSubstitution = document.id('substitution');
+			
+			scoreboard.showMessage('statusMessage', {}, false);
+		
+			addHomeGoal.addEvent('click', function () {
+				scoreboard.addGoal('home');
+				scoreboard.showMessage('scoreMessage', {title: 'GOAL', logo: scoreboard.get('homeTeamLogo'), number: '10', player: 'Alessandro Del Piero', minute: scoreboard.get('time').split(':')[0].replace(/^0/, '') + '\''}, false);	
+			});
+			
+			addAwayGoal.addEvent('click', function () {
+				scoreboard.addGoal('away');
+				scoreboard.showMessage('scoreMessage', {title: 'GOAL', logo: scoreboard.get('awayTeamLogo'), number: '10', player: 'Lionel Messi', minute: scoreboard.get('time').split(':')[0].replace(/^0/, '') + '\''}, false);	
+			});
+			
+			showStatus.addEvent('click', function () {
+				scoreboard.showMessage('statusMessage', {}, false);	
+			});
+			
+			yellowCard.addEvent('click', function () {
+				scoreboard.showMessage('bookingMessage', {title: 'Yellow card', logo: scoreboard.get('homeTeamLogo'), number: '3', card: 'yellow', player: 'Giorgio Chiellini', minute: scoreboard.get('time').split(':')[0].replace(/^0/, '') + '\''}, false);	
+			});
+			
+			redCard.addEvent('click', function () {
+				scoreboard.showMessage('bookingMessage', {title: 'Red card', logo: scoreboard.get('awayTeamLogo'), number: '16', card: 'red', player: 'Sergio Busquets', minute: scoreboard.get('time').split(':')[0].replace(/^0/, '') + '\''}, false);	
+			});
+			
+			showSubstitution.addEvent('click', function () {
+				scoreboard.showMessage('substituteMessage', {title: 'Substitution', logo: scoreboard.get('homeTeamLogo'), playerOut: '21. Andrea Pirlo', playerIn: '6. Paul Pogba', minute: scoreboard.get('time').split(':')[0].replace(/^0/, '') + '\''}, false);	
+			});
+		</script>
+	</body>
+</html>

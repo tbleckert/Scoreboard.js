@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Scoreboard.js</title>
+		<link rel="stylesheet" href="css/demo.css">
+		<link rel="stylesheet" href="../src/theme.css">
+	</head>
+	<body>
+		<article class="scoreboard" id="scoreboard">
+			<div class="teams">
+				<span class="team" data-scoreboard-bind="homeTeamShort"></span>
+				<span class="score">
+					<span data-scoreboard-bind="homeTeamGoals"></span>
+					-
+					<span data-scoreboard-bind="awayTeamGoals"></span>
+				</span>
+				<span class="team" data-scoreboard-bind="awayTeamShort"></span>
+			</div>
+			<span class="time" data-scoreboard-bind="time"></span>
+		</article>
+		
+		<script src="../src/deps/mootools.js"></script>
+		<script src="../src/deps/mootools-more.js"></script>
+		<script src="../src/scoreboard.js"></script>
+		<script>
+			var scoreboard = new Scoreboard();
+		</script>
+	</body>
+</html>
