@@ -1,0 +1,274 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Scoreboard.js by tbleckert</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Scoreboard.js</h1>
+        <p>Easy Scoreboards</p>
+
+        <p class="view"><a href="https://github.com/tbleckert/scoreboard.js">View the Project on GitHub <small>tbleckert/scoreboard.js</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/tbleckert/scoreboard.js/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/tbleckert/scoreboard.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/tbleckert/scoreboard.js">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Scoreboard.js</h1>
+
+<p>Scoreboard.js is a personal project that I finally got around to make the final touches and now I'm making it public here on Github.</p>
+
+<h2>Why did I build it?</h2>
+
+<p>The main reason why I started working on Scoreboard.js was to learn Mootools (yes, Scoreboard.js i built with Mootools). Also I needed a scoreboard for a game that I'm currently coding on.</p>
+
+<h2>So what is it?</h2>
+
+<p>It's a…ehrm…HTML scoreboard widget. It's easy to create a theme, adding a sport and has a super simple api. Besides from being a widget that displays the score, time, etc…it also contains a notification thing that you can show when someone scored, got a red card or anything really.</p>
+
+<h2>How do I use it?</h2>
+
+<p>First of all you need a template. Scoreboard.js makes use of declarative bindings to make it easy for every one to work with. So a scoreboard template is actually plain HTML with some data bindings like this:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;article</span> <span class="na">class=</span><span class="s">"scoreboard"</span> <span class="na">id=</span><span class="s">"scoreboard"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"scores"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"team"</span> <span class="na">data-scoreboard-bind=</span><span class="s">"homeTeamName"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"score"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;span</span> <span class="na">data-scoreboard-bind=</span><span class="s">"homeTeamGoals"</span><span class="nt">&gt;&lt;/span&gt;</span>
+            -
+            <span class="nt">&lt;span</span> <span class="na">data-scoreboard-bind=</span><span class="s">"awayTeamGoals"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"team"</span> <span class="na">data-scoreboard-bind=</span><span class="s">"awayTeamName"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"time"</span> <span class="na">data-scoreboard-bind=</span><span class="s">"time"</span><span class="nt">&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;/article&gt;</span>
+</pre></div>
+
+<p>With that exact markup you have the base for a fully working scoreboard with the default theme.</p>
+
+<p>Next some javascript to create the scoreboard.</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">scoreboard</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Scoreboard</span><span class="p">();</span>
+</pre></div>
+
+<p>Finally include the necessary files:</p>
+
+<div class="highlight"><pre><span class="c">&lt;!-- Inside &lt;head&gt; --&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"source/theme.css"</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- Before &lt;/body&gt; --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"vendor/mootools.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"vendor/mootools-more.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"source/scoreboard.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<h2>API</h2>
+
+<p>There is several useful API methods to call. Here is a full list:</p>
+
+<p><strong>scoreboard.set( what, value )</strong></p>
+
+<p>Set any option/setting to the given value. If the option doesn't exist, it creates it.</p>
+
+<hr><p><strong>scoreboard.get( what )</strong></p>
+
+<p>Returns the value of the given option/setting.</p>
+
+<hr><p><strong>scoreboard.startTime()</strong></p>
+
+<p>Starts the timer.</p>
+
+<hr><p><strong>scoreboard.stopTime()</strong></p>
+
+<p>Stops the timer.</p>
+
+<hr><p><strong>scoreboard.resetTimer()</strong></p>
+
+<p>Resets the timer to default.</p>
+
+<hr><p><strong>scoreboard.increaseTime()</strong></p>
+
+<p>Adds one second to the timer.</p>
+
+<hr><p><strong>scoreboard.decreaseTime()</strong></p>
+
+<p>Removes one second from the timer.</p>
+
+<hr><p><strong>scoreboard.addGoal( team )</strong></p>
+
+<p>Adds 1 goal to the given team. team should be a string containing <em>home</em> or <em>away</em>.</p>
+
+<hr><p><strong>scoreboard.removeGoal( team )</strong></p>
+
+<p>Removes 1 goal from the given team.</p>
+
+<hr><p><strong>scoreboard.resetGoals( team )</strong></p>
+
+<p>Reset goals for the given team to the default.</p>
+
+<hr><p><strong>scoreboard.toJSON()</strong></p>
+
+<p>If you need to save the current state of the scoreboard, you can call the <strong>toJSON()</strong> method. That will return all data stored in the scoreboard as JSON.</p>
+
+<hr><p><strong>scoreboard.showMessage( id, data, position )</strong></p>
+
+<p>When you need to show a message/notification you will call this method. First parameter is a string with the ID of the template (more on this further down). The second parameter is a object containing the data for the template. The last parameter is the position where you want the message to appear, possible values is the same as for the scoreboard (default is bottomCenter).</p>
+
+<hr><p><strong>scoreboard.hideMessage()</strong></p>
+
+<p>This method will simply hide the currently showing message. Note that the message will automatically dissapear after 3 seconds (or based on the option <em>duration</em>).</p>
+
+<hr><p><strong>scoreboard.applyFilter( hook, function )</strong></p>
+
+<p>More on this further down.</p>
+
+<h2>Events</h2>
+
+<p>Every method (except <em>get</em>) that you call fires a event. The event os prefixed with <strong>on</strong> and the method starts with a capital letter like this:</p>
+
+<div class="highlight"><pre><span class="nx">scoreboard</span><span class="p">.</span><span class="nx">addEvent</span><span class="p">(</span><span class="s1">'onStartTime'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'Time started!'</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Methods that you can pass parameters to returns those in the event. Take the <strong>set</strong> (that is also a bit different, the event is called <em>change</em>) method:</p>
+
+<div class="highlight"><pre><span class="nx">scoreboard</span><span class="p">.</span><span class="nx">addEvent</span><span class="p">(</span><span class="s1">'change'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">what</span><span class="p">,</span> <span class="nx">value</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'The option: '</span> <span class="o">+</span> <span class="nx">what</span> <span class="o">+</span> <span class="s1">' was changed to: '</span> <span class="o">+</span> <span class="nx">value</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Another example is the addGoal method that is called onScore:</p>
+
+<div class="highlight"><pre><span class="nx">scoreboard</span><span class="p">.</span><span class="nx">addEvent</span><span class="p">(</span><span class="s1">'onScore'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">team</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">team</span> <span class="o">+</span> <span class="s1">' scored!'</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+<h2>Filters</h2>
+
+<p>There is certain filters you can use to manipulate the values in some functions. A list of available filters and a example is displayed below:</p>
+
+<p><strong>addHomeTeamGoal</strong></p>
+
+<hr><p><strong>addAwayTeamGoal</strong></p>
+
+<hr><p><strong>removeHomeTeamGoal</strong></p>
+
+<hr><p><strong>removeAwayTeamGoal</strong></p>
+
+<hr><p><strong>increaseTime</strong></p>
+
+<hr><p><strong>decreaseTime</strong></p>
+
+<h3>Example</h3>
+
+<p>To filter a value you use the <em>applyFilter (hook, function)</em> method. The first parameter is the hook (from the list above) and the second one is the function. In the function you will be provided with the value generated from the function the filter lives in. Use it like this:</p>
+
+<div class="highlight"><pre><span class="nx">scoreboard</span><span class="p">.</span><span class="nx">applyFilter</span><span class="p">(</span><span class="s1">'addHomeTeamGoal'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">goal</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Logic logic logic…</span>
+    <span class="k">return</span> <span class="nx">goal</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>The function you set should always return a value. In the example we add 2 extra goals to the home team.</p>
+
+<h2>Options</h2>
+
+<p>There is several options that you can set. All options are optional though, so to get it up and running you don't need to do anything. Default value is in parentheses.</p>
+
+<p><strong>element (scoreboard)</strong></p>
+
+<p>This is the ID of the main element.</p>
+
+<hr><p><strong>position (topCenter)</strong></p>
+
+<p>You can let Scoreboard.js absolute position your scoreboard with the this option. Position can be one of these: topLeft topCenter topRight middle bottomLeft bottomCenter bottomRight. You can also set it to <em>null</em> and no positioning will happen.</p>
+
+<hr><p><strong>homeTeamName (Home)</strong></p>
+
+<p>The full home team name.</p>
+
+<hr><p><strong>awayTeamName (Away)</strong></p>
+
+<p>The full away team name.</p>
+
+<hr><p><strong>homeTeamLogo (null)</strong></p>
+
+<p>Path to the logo for the home team.</p>
+
+<hr><p><strong>awayTeamLogo (null)</strong></p>
+
+<p>Path to the logo for the home team.</p>
+
+<hr><p><strong>homeTeamShort (null)</strong></p>
+
+<p>Three letter version of the home team name. If set to <em>null</em> the three first letters of the full name will be used.</p>
+
+<hr><p><strong>awayTeamShort (null)</strong></p>
+
+<p>Three letter version of the away team name. If set to <em>null</em> the three first letters of the full name will be used.</p>
+
+<hr><p><strong>homeTeamGoals (0)</strong></p>
+
+<p>Default goals of the home team.</p>
+
+<hr><p><strong>awayTeamGoals (0)</strong></p>
+
+<p>Default goals of the away team.</p>
+
+<hr><p><strong>secondLength (1000)</strong></p>
+
+<p>If you want the time to go faster or slower than a second, you can set secondLength to what you want, in ms.</p>
+
+<hr><p><strong>time (00:00)</strong></p>
+
+<p>Default time.</p>
+
+<hr><p><strong>timeDirection (up)</strong></p>
+
+<p>The direction of the time. Set to <em>down</em> if you want to count down instead of the normal direction which is up.</p>
+
+<p><strong>animationSpeed (300)</strong></p>
+
+<p>Time in ms for the message animation when showing/hiding.</p>
+
+<hr><p><strong>duration (3000)</strong></p>
+
+<p>How long (in ms) the message should be visible.</p>
+
+<hr>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/tbleckert">tbleckert</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-31456432-4");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
