@@ -402,6 +402,7 @@ var Scoreboard = new Class({
 		return JSON.stringify(this.options);
 	},
 	
+	// https://github.com/premasagar/tim
 	tim: function () {
 		var e = /{{\s*([a-z0-9_][\\.a-z0-9_]*)\s*}}/gi;
 		return function (f, g) {
