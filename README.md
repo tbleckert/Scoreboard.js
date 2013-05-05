@@ -1,6 +1,8 @@
 # Scoreboard.js
 
-Scoreboard.js is a personal project that I finally got around to make the final touches and now I'm making it public here on Github.
+Scoreboard.js is a personal project that I finally got around to make the final touches to. It's now a Mootools plugin here on Github.
+
+![Screenshot](https://dl.dropboxusercontent.com/u/6306766/tobiasbleckert.se/scoreboardjs.png)
 
 ## Why did I build it?
 
@@ -254,6 +256,29 @@ __duration (3000)__
 
 How long (in ms) the message should be visible.
 - - -
+
+## Messages
+
+Messages uses a javascript tempting and I've provided 4 standard views for a message, they are: Status, Goal, Booking and Substitution. You can view them in the messages demo.
+
+A template looks like this:
+
+```html
+<script type="text/tim" id="myMessage">
+	<div class="myMessage">
+		<span class="scoreboardData">{{scoreboard.homeTeamName}}</span>
+		<span class="customData">{{fo}}</span>
+	</div>
+</script>
+```
+
+As you can see, data values is surrounded by double brackets. If you want to use data from the scoreboard prefix it with _scoreboard_ like this: `scoreboard.time`.
+
+To show the message, you need one line of javascript:
+
+```javascript
+scoreboard.showMessage('myMessage', {fo: 'bar'}, 'bottomRight');
+```
 
 ## Demos
 
