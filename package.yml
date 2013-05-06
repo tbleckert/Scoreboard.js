@@ -1,7 +1,8 @@
+#Forge
 name: Scoreboard.js
 author: tbleckert
 category: Widgets
 tags: [widget, sport, html, data, events, alert]
-#docs: http://tobiasbleckert.se/scoreboard.js/
-#demo: http://scoreboardjs.tb-one.se/demos/messages.html
-#current: 0.1
+docs: http://tobiasbleckert.se/scoreboardjs/
+demo: http://scoreboardjs.tb-one.se/demos/messages.html
+current: 0.1
