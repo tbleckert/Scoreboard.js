@@ -1,7 +1,6 @@
 /*
 ---
 name: Scoreboard.js
-
 description: Easy Scoreboards with notifications.
 
 license: MIT-style

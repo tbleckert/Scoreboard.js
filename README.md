@@ -48,7 +48,7 @@ Finally include the necessary files:
 <!-- Before </body> -->
 <script src="vendor/mootools.js"></script>
 <script src="vendor/mootools-more.js"></script>
-<script src="source/scoreboard.js"></script>
+<script src="source/Scoreboard.js"></script>
 ```
 
 ## API
@@ -284,7 +284,7 @@ scoreboard.showMessage('myMessage', {fo: 'bar'}, 'bottomRight');
 
 Remember to watch the source.
 
-* [Basic](http://scoreboardjs.tb-one.se/demos/basic.html)
-* [Messages](http://scoreboardjs.tb-one.se/demos/messages.html)
-* [Methods](http://scoreboardjs.tb-one.se/demos/methods.html)
-* [Extend](http://scoreboardjs.tb-one.se/demos/extend.html)
+* [Basic](http://scoreboardjs.tb-one.se/Demos/basic.html)
+* [Messages](http://scoreboardjs.tb-one.se/Demos/messages.html)
+* [Methods](http://scoreboardjs.tb-one.se/Demos/methods.html)
+* [Extend](http://scoreboardjs.tb-one.se/Demos/extend.html)
