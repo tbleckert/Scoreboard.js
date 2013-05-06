@@ -1,13 +1,18 @@
 /*
 ---
+name: Scoreboard.js
+
 description: Easy Scoreboards with notifications.
 
-license: MIT
+license: MIT-style
 
-authors: [Tobias Bleckert]
+authors:
+  - Tobias Bleckert
+
+requires:
+  - Core/1.4.5
 
 provides: [Scoreboard]
-
 ...
 */
 
