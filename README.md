@@ -48,7 +48,7 @@ Finally include the necessary files:
 <!-- Before </body> -->
 <script src="vendor/mootools.js"></script>
 <script src="vendor/mootools-more.js"></script>
-<script src="source/scoreboard.min.js"></script>
+<script src="source/scoreboard.js"></script>
 ```
 
 ## API
