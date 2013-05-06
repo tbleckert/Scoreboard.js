@@ -4,8 +4,7 @@ description: Easy Scoreboards with notifications.
 
 license: MIT
 
-authors:
-- Tobias Bleckert
+authors: [Tobias Bleckert]
 
 provides: [Scoreboard]
 
