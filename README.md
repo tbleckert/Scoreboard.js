@@ -284,7 +284,7 @@ scoreboard.showMessage('myMessage', {fo: 'bar'}, 'bottomRight');
 
 Remember to watch the source.
 
-* [Basic](http://scoreboardjs.tb-one.se/Demos/basic.html)
-* [Messages](http://scoreboardjs.tb-one.se/Demos/messages.html)
-* [Methods](http://scoreboardjs.tb-one.se/Demos/methods.html)
-* [Extend](http://scoreboardjs.tb-one.se/Demos/extend.html)
+* [Basic](http://scoreboard.tb-one.se/demos/basic.html)
+* [Messages](http://scoreboard.tb-one.se/demos/messages.html)
+* [Methods](http://scoreboard.tb-one.se/demos/methods.html)
+* [Extend](http://scoreboard.tb-one.se/demos/extend.html)
