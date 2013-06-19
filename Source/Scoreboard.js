@@ -275,8 +275,8 @@ provides: [Scoreboard]
 		
 		increaseTime: function () {
 			var time = this.options.time,
-					seconds = Number.from(time.split(':')[1]),
-					minutes = Number.from(time.split(':')[0]);
+			    seconds = Number.from(time.split(':')[1]),
+			    minutes = Number.from(time.split(':')[0]);
 					
 			if (this.options.timeDirection === 'down') {
 				seconds -= 1;
@@ -316,8 +316,8 @@ provides: [Scoreboard]
 		
 		decreaseTime: function () {
 			var time = this.options.time,
-					seconds = Number.from(time.split(':')[1]),
-					minutes = Number.from(time.split(':')[0]);
+			    seconds = Number.from(time.split(':')[1]),
+			    minutes = Number.from(time.split(':')[0]);
 					
 			if (seconds > 0 || minutes > 0) {
 				seconds -= 1;
@@ -383,19 +383,19 @@ provides: [Scoreboard]
 		
 		hideMessage: function () {
 			var self  = this,
-					nextMessage,
-					morph = new Fx.Morph(this.message, {
-						duration: this.options.animationSpeed,
-						onComplete: function () {
-							self.message.removeClass('isShowing');
-							if (self.messageQueue.length > 0) {
-								nextMessage = self.messageQueue[0];
-								self.showMessage(nextMessage[0], nextMessage[1], nextMessage[2]);
-								
-								self.messageQueue.shift();
-							}
-						}
-					});
+			    nextMessage,
+			    morph = new Fx.Morph(this.message, {
+			    	duration: this.options.animationSpeed,
+			    	onComplete: function () {
+			    		self.message.removeClass('isShowing');
+			    		if (self.messageQueue.length > 0) {
+			    			nextMessage = self.messageQueue[0];
+			    			self.showMessage(nextMessage[0], nextMessage[1], nextMessage[2]);
+
+			    			self.messageQueue.shift();
+			    		}
+			    	}
+			    });
 			
 			morph.start({
 				'opacity': [1, 0],
