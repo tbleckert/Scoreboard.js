@@ -15,11 +15,11 @@ provides: [Scoreboard]
 ...
 */
 
-(function (global) {
+(function () {
 
 	'use strict';
 	
-	global.Scoreboard = new Class({
+	window.Scoreboard = new Class({
 	
 		Implements: [Options, Events],
 		
@@ -474,4 +474,4 @@ provides: [Scoreboard]
 		return name.slice(0, 3).toUpperCase();
 	});
 	
-}(window));
+})();
