@@ -40,6 +40,7 @@ provides: [Scoreboard]
 			time:            '00:00',         // start time
 			animationSpeed:  300,             // message animation speed
 			duration:        3000             // message life time
+			leadingZero:     false            // leading zero on goals
 		},
 		
 		initialize: function (options) {
@@ -87,6 +88,14 @@ provides: [Scoreboard]
 		
 		attach: function () {
 			this.addEvent('change', function (what, value) {
+				if (this.options.leadingZero) {
+					if (what === 'homeTeamGoals' || what === 'awayTeamGoals') {
+						if (value < 10) {
+							value = '0' + value;
+						}
+					}
+				}
+				
 				this.getScoreboardElement(what).set('html', value);
 			});
 		
@@ -101,6 +110,14 @@ provides: [Scoreboard]
 			var self = this;
 			
 			Object.each(this.options, function (value, key) {
+				if (self.options.leadingZero) {
+					if (key === 'homeTeamGoals' || key === 'awayTeamGoals') {
+						if (value < 10) {
+							value = '0' + value;
+						}
+					}
+				}
+				
 				self.getScoreboardElement(key).set('html', value);
 			});
 			
