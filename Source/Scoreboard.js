@@ -37,9 +37,9 @@ provides: [Scoreboard]
 			awayTeamGoals:   0,               // away team goals
 			secondLength:    1000,            // second length in ms
 			timeDirection:   'up',            // countdown or normal
-			time:            '00:00',         // used when sport is ice hockey or soccer
-			animationSpeed:  300,
-			duration:        3000
+			time:            '00:00',         // start time
+			animationSpeed:  300,             // message animation speed
+			duration:        3000             // message life time
 		},
 		
 		initialize: function (options) {
