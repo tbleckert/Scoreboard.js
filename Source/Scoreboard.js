@@ -227,7 +227,7 @@ provides: [Scoreboard]
 			} else {
 				this.element.setStyles({
 					opacity: 1
-				})
+				});
 			}
 		},
 		
@@ -237,7 +237,7 @@ provides: [Scoreboard]
 			} else {
 				this.element.setStyles({
 					opacity: 0
-				})
+				});
 			}
 		},
 		
@@ -332,13 +332,13 @@ provides: [Scoreboard]
 		},
 		
 		startTime: function () {
-			var self = this;
+			var self = this; 
 			
 			clearInterval(this.timer);
 		
 			this.timer = setInterval(function () {
 				self.increaseTime();
-			}, 1 * this.options.secondLength);
+			}, Number.from(this.options.secondLength));
 			
 			this.fireEvent('onStartTime');
 			return this;
@@ -488,9 +488,9 @@ provides: [Scoreboard]
 		filter: function (filter, val) {
 			if (this.filters.hasOwnProperty(filter) && typeof(this.filters[filter]) === 'function') {
 				return this.filters[filter](val);
-			} else {
-				return val;
 			}
+			
+			return val;
 		},
 		
 		toJSON: function () {
