@@ -39,7 +39,7 @@ provides: [Scoreboard]
 			timeDirection:   'up',            // countdown or normal
 			time:            '00:00',         // start time
 			animationSpeed:  300,             // message animation speed
-			duration:        3000             // message life time
+			duration:        3000,            // message life time
 			leadingZero:     false            // leading zero on goals
 		},
 		
