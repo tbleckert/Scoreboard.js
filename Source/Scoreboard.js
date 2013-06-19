@@ -24,7 +24,7 @@ provides: [Scoreboard]
 		Implements: [Options, Events],
 		
 		options: {
-			element:         'scoreboard',
+			element:         'scoreboard',    // ID of main element
 			position:        'topCenter',     // Position of the scoreboard to it's relative parent
 			autoStart:       false,           // Auto start time or not
 			homeTeamLogo:    null,            // logo image src
@@ -68,7 +68,7 @@ provides: [Scoreboard]
 				'link': 'chain'
 			});
 			
-			// Create empty message queue
+			// Prepeare message queue
 			this.messageQueue = [];
 			
 			// Set short names
@@ -83,6 +83,7 @@ provides: [Scoreboard]
 			// Set main element
 			this.element = document.id(this.options.element);
 	
+			// Set position of the scoreboard, build it and attach events
 			this.setPosition().build().attach();
 		},
 		
@@ -91,6 +92,7 @@ provides: [Scoreboard]
 				var element = this.getScoreboardElement(what),
 				    type    = element.get('tag')[0];
 				
+				// Check if leading zero is enabled
 				if (this.options.leadingZero) {
 					if (what === 'homeTeamGoals' || what === 'awayTeamGoals') {
 						if (value < 10) {
@@ -110,6 +112,7 @@ provides: [Scoreboard]
 		},
 		
 		detach: function () {
+			// Nothing to do here yet
 			return this;
 		},
 		
@@ -120,6 +123,7 @@ provides: [Scoreboard]
 				var element = self.getScoreboardElement(key),
 				    type    = element.get('tag')[0];
 				
+				// Check if leading zero is enabled
 				if (self.options.leadingZero) {
 					if (key === 'homeTeamGoals' || key === 'awayTeamGoals') {
 						if (value < 10) {
