@@ -88,6 +88,9 @@ provides: [Scoreboard]
 		
 		attach: function () {
 			this.addEvent('change', function (what, value) {
+				var element = this.getScoreboardElement(what),
+				    type    = element.get('tag')[0];
+				
 				if (this.options.leadingZero) {
 					if (what === 'homeTeamGoals' || what === 'awayTeamGoals') {
 						if (value < 10) {
@@ -96,7 +99,11 @@ provides: [Scoreboard]
 					}
 				}
 				
-				this.getScoreboardElement(what).set('html', value);
+				if (type === 'input') {
+					element.set('value', value);
+				} else {
+					element.set('html', value);
+				}
 			});
 		
 			return this;
@@ -110,6 +117,9 @@ provides: [Scoreboard]
 			var self = this;
 			
 			Object.each(this.options, function (value, key) {
+				var element = self.getScoreboardElement(key),
+				    type    = element.get('tag')[0];
+				
 				if (self.options.leadingZero) {
 					if (key === 'homeTeamGoals' || key === 'awayTeamGoals') {
 						if (value < 10) {
@@ -118,7 +128,11 @@ provides: [Scoreboard]
 					}
 				}
 				
-				self.getScoreboardElement(key).set('html', value);
+				if (type === 'input') {
+					element.set('value', value);
+				} else {
+					element.set('html', value);
+				}
 			});
 			
 			if (this.options.autoStart) {
