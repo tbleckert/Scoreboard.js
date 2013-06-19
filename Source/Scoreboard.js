@@ -38,7 +38,7 @@ provides: [Scoreboard]
 			secondLength:    1000,            // second length in ms
 			timeDirection:   'up',            // countdown or normal
 			time:            '00:00',         // start time
-			animationSpeed:  300,             // message animation speed
+			animationSpeed:  300,             // animation speed
 			duration:        3000,            // message life time
 			leadingZero:     false            // leading zero on goals
 		},
@@ -119,6 +119,12 @@ provides: [Scoreboard]
 		build: function () {
 			var self = this;
 			
+			// Add tween to main element
+			this.element.set('tween', {
+				duration: this.options.animationSpeed
+			});
+			
+			// Add values to listeners
 			Object.each(this.options, function (value, key) {
 				var element = self.getScoreboardElement(key),
 				    type    = element.get('tag')[0];
@@ -196,6 +202,26 @@ provides: [Scoreboard]
 			}
 			
 			return this;
+		},
+		
+		show: function (animate) {
+			if (animate) {
+				this.element.tween('opacity', 1);
+			} else {
+				this.element.setStyles({
+					opacity: 1
+				})
+			}
+		},
+		
+		hide: function (animate) {
+			if (animate) {
+				this.element.tween('opacity', 0);
+			} else {
+				this.element.setStyles({
+					opacity: 0
+				})
+			}
 		},
 		
 		get: function (what) {
