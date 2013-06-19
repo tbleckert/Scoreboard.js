@@ -153,55 +153,72 @@ provides: [Scoreboard]
 		},
 		
 		setPosition: function () {
-			if (this.options.position === 'topCenter') {
-				this.element.setStyles({
-					position: 'absolute',
-					top: '20px',
-					left: '50%',
-					marginLeft: - (this.element.getWidth() / 2)
-				});
-			} else if (this.options.position === 'topLeft') {
-				this.element.setStyles({
-					position: 'absolute',
-					top: '20px',
-					left: '20px'
-				});
-			} else if (this.options.position === 'topRight') {
-				this.element.setStyles({
-					position: 'absolute',
-					top: '20px',
-					right: '20px'
-				});
-			} else if (this.options.position === 'bottomLeft') {
-				this.element.setStyles({
-					position: 'absolute',
-					bottom: '20px',
-					left: '20px'
-				});
-			} else if (this.options.position === 'bottomRight') {
-				this.element.setStyles({
-					position: 'absolute',
-					bottom: '20px',
-					right: '20px'
-				});
-			} else if (this.options.position === 'bottomCenter') {
-				this.element.setStyles({
-					position: 'absolute',
-					bottom: '20px',
-					left: '50%',
-					marginLeft: - (this.element.getWidth() / 2)
-				});
-			} else if (this.options.position === 'center') {
-				this.element.setStyles({
-					position: 'absolute',
-					bottom: '50%',
-					left: '50%',
-					marginLeft: - (this.element.getWidth() / 2),
-					marginTop: - (this.element.getHeight() / 2)
-				});
+			// Position scoreboard
+			if (this.options.position) {
+				this['position' + this.options.position.capitalize()]();
 			}
 			
 			return this;
+		},
+		
+		positionTopLeft: function () {
+			this.element.setStyles({
+				position: 'absolute',
+				top: '20px',
+				left: '20px'
+			});
+		},
+		
+		positionTopCenter: function () {
+			this.element.setStyles({
+				position: 'absolute',
+				top: '20px',
+				left: '50%',
+				marginLeft: - (this.element.getWidth() / 2)
+			});
+		},
+		
+		positionTopRight: function () {
+			this.element.setStyles({
+				position: 'absolute',
+				top: '20px',
+				right: '20px'
+			});
+		},
+		
+		positionBottomLeft: function () {
+			this.element.setStyles({
+				position: 'absolute',
+				bottom: '20px',
+				left: '20px'
+			});
+		},
+		
+		positionBottomCenter: function () {
+			this.element.setStyles({
+				position: 'absolute',
+				bottom: '20px',
+				left: '50%',
+				marginLeft: - (this.element.getWidth() / 2)
+			});
+		},
+		
+		positionBottomRight: function () {
+			this.element.setStyles({
+				position: 'absolute',
+				bottom: '20px',
+				right: '20px'
+			});
+		},
+		
+		positionCenter: function () {
+			this.element.setStyles({
+				position: 'absolute',
+				bottom: '50%',
+				left: '50%',
+				marginLeft: - (this.element.getWidth() / 2),
+				marginTop: - (this.element.getHeight() / 2)
+			});
 		},
 		
 		show: function (animate) {
